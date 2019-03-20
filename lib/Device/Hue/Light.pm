@@ -65,6 +65,23 @@ sub set_state
 	return $self;
 }
 
+sub get_state
+{
+  my ($self) = @_;
+  my $r = $self->hue->get($self->hue->path_to('lights', $self->id));
+  return $r->{'state'};
+}
+
+sub is_on
+{
+  return (shift)->get_state()->{'on'};
+}
+  
+sub is_reachable
+{
+  return (shift)->get_state()->{'reachable'};
+}
+
 sub on
 {
 	return (shift)->set_state({ 'on' => 1 }); 
